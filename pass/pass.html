@@ -1,24 +1,30 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Kiểm tra mật khẩu</title>
   <link rel="stylesheet" href="pass.css" />
 </head>
 <body>
   <form class="container">
-    <input type="password" id="password" placeholder="Mật khẩu" />
-    
-    <label for="togglePassword" class="checkbox-label">
+    <label for="password">Mật khẩu:</label>
+    <input type="password" id="password" placeholder="Nhập mật khẩu" />
+
+    <label class="checkbox-label">
       <input type="checkbox" id="togglePassword" />
       Hiện mật khẩu
     </label>
 
-    <div id="strength-bar"></div>
+    <div id="strength-bar-wrapper">
+      <div id="strength-bar"></div>
+    </div>
     <p id="strength-text">Độ mạnh: </p>
   </form>
 
-  <script type="module" src="main.js"></script>
+  <!-- sử dụng thư viện zxcvbn từ dropbox -->
+  <script src="https://cdn.jsdelivr.net/npm/zxcvbn@4.4.2/dist/zxcvbn.js"></script>
+  <script src="main.js"></script>
 </body>
 </html>
+
  

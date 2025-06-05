@@ -14,8 +14,7 @@ function getStrengthLabel(score) {
     case 4: return { label: 'Mạnh', color: '#27ae60' };
     case 3: return { label: 'Trung bình', color: '#f1c40f' };
     case 2: return { label: 'Yếu', color: '#e67e22' };
-    case 1: return { label: 'rất yếu', color : '#e74c3c'};
-    default: return { color: '#e74c3c' };
+    default: return { label: 'Rất yếu', color: '#e74c3c' };
   }
 }
 
@@ -36,12 +35,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     passwordInput.addEventListener('input', () => {
       const pwd = passwordInput.value;
+
+      // Tính điểm và hiển thị
       const score = getPasswordStrength(pwd);
       const { label, color } = getStrengthLabel(score);
-
       strengthBar.style.width = `${(score / 5) * 100}%`;
       strengthBar.style.backgroundColor = color;
-      strengthText.textContent = `Độ mạnh: ${label}`;
+
+      // Ước lượng thời gian phá (zxcvbn)
+      let crackTimeText = '';
+      if (window.zxcvbn) {
+        const result = zxcvbn(pwd);
+        crackTimeText = result.crack_times_display.offline_fast_hashing_1e10_per_second;
+      }
+
+      strengthText.textContent = `Độ mạnh: ${label} | Cần: ${crackTimeText} để phá `;
     });
 
   } catch (err) {
@@ -49,3 +57,4 @@ document.addEventListener('DOMContentLoaded', () => {
     alert("Không thể khởi tạo kiểm tra mật khẩu.");
   }
 });
+
